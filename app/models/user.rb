@@ -33,8 +33,19 @@ class User < ActiveRecord::Base
   
   def self.authenticate(email, submitted_password)
     user = find_by_email(email)
-    return nil if user.nil?
-    return user if user.has_password?(submitted_password)
+    ## Test avec if..elsif.. ##
+    if user.nil?
+      nil
+    elsif user.has_password?(submitted_password)
+      user
+    end
+    ## Variante possible sans if..elsif.. ##
+    #return nil if user.nil?
+    #return user if user.has_password?(submitted_password)
+    #return nil
+    
+    ## Variante avec opérateur ternaire ##
+    # user && user.has_password?(submitted_password) ? user : nil
   end
   
   private 
